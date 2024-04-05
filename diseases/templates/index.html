@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agricultural Solutions in Muranga</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header class="header">
+        <img src="https://static.vecteezy.com/system/resources/thumbnails/005/369/143/small_2x/pest-control-logo-pesticide-logo-vector.jpg" alt="Crops header image" class="header-image">
+        <h1>Agricultural Solutions in Muranga</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Crops</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-content">
+        <h2>Add a new solution</h2>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form action="{{ url_for('add_entry') }}" method="post" class="entry-form">
+            <label for="crop">Crop Affected:</label>
+            <input type="text" name="crop" id="crop" placeholder="Enter crop name" required>
+            <label for="pest">Pest Identified:</label>
+            <input type="text" name="pest" id="pest" placeholder="Enter pest name" required>
+            <label for="solution">Solution:</label>
+            <textarea name="solution" id="solution" rows="4" placeholder="Enter solution" required></textarea>
+            <input type="submit" value="Submit Solution">
+        </form>
+        <hr>
+        <h2>Solutions:</h2>
+        <ul class="solutions">
+            {% for entry in entries %}
+                <li>
+                    <div class="crop">{{ entry['crop'] }}</div>
+                    <div class="pest">{{ entry['pest'] }}</div>
+                    <div class="solution">{{ entry['solution'] }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>
